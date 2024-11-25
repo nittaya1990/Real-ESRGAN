@@ -7,7 +7,9 @@
   - [Train Real-ESRGAN](#Train-Real-ESRGAN)
 - [Finetune Real-ESRGAN on your own dataset](#Finetune-Real-ESRGAN-on-your-own-dataset)
   - [Generate degraded images on the fly](#Generate-degraded-images-on-the-fly)
-  - [Use paired training data](#Use-paired-training-data)
+  - [Use paired training data](#use-your-own-paired-data)
+
+[English](Training.md) **|** [简体中文](Training_CN.md)
 
 ## Train Real-ESRGAN
 
@@ -65,7 +67,7 @@ You can use the [scripts/generate_meta_info.py](scripts/generate_meta_info.py) s
 You can merge several folders into one meta_info txt. Here is the example:
 
 ```bash
- python scripts/generate_meta_info.py --input datasets/DF2K/DF2K_HR, datasets/DF2K/DF2K_multiscale --root datasets/DF2K, datasets/DF2K --meta_info datasets/DF2K/meta_info/meta_info_DF2Kmultiscale.txt
+ python scripts/generate_meta_info.py --input datasets/DF2K/DF2K_HR datasets/DF2K/DF2K_multiscale --root datasets/DF2K datasets/DF2K --meta_info datasets/DF2K/meta_info/meta_info_DF2Kmultiscale.txt
 ```
 
 ### Train Real-ESRNet
@@ -164,7 +166,7 @@ You can finetune Real-ESRGAN on your own dataset. Typically, the fine-tuning pro
 
 ### Generate degraded images on the fly
 
-Only high-resolution images are required. The low-quality images are generated with the degradation process described in Real-ESRGAN during trainig.
+Only high-resolution images are required. The low-quality images are generated with the degradation process described in Real-ESRGAN during training.
 
 **1. Prepare dataset**
 
@@ -251,9 +253,9 @@ train:
     type: RealESRGANPairedDataset
     dataroot_gt: datasets/DF2K  # modify to the root path of your folder
     dataroot_lq: datasets/DF2K  # modify to the root path of your folder
-    meta_info: datasets/DF2K/meta_info/meta_info_DIV2K_sub_pair.txt  # modify to the root path of your folder
+    meta_info: datasets/DF2K/meta_info/meta_info_DIV2K_sub_pair.txt  # modify to your own generate meta info txt
     io_backend:
-    type: disk
+        type: disk
 ```
 
 We use four GPUs for training. We use the `--auto_resume` argument to automatically resume the training if necessary.
